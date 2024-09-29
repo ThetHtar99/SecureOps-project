@@ -40,5 +40,5 @@ data "aws_iam_policy_document" "vault_root" {
 resource "aws_iam_user_policy" "vault_root_policy" {
   name   = "vault-root-policy"
   user   = aws_iam_user.vault_root.name
-  policy = data.aws_iam_policy_document.vault_root_policy.json
+  policy = data.aws_iam_policy_document.vault_root.json
 }
