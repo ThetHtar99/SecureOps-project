@@ -6,4 +6,4 @@ output "secret_name" {
 output "secret_path" {
   description = "Path to the secret"
   value       = vault_kv_secret_v2.example.path
-}`
+}
