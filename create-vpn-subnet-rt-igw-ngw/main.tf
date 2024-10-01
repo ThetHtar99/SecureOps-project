@@ -9,37 +9,14 @@ resource "aws_vpc" "main" {
 #Public Subnets
 #############################################
 
-
-resource "aws_subnet" "public_subnet_01" {
+resource "aws_subnet" "public_subnet" {
+  count = length(var.public_subnet)
   vpc_id     = aws_vpc.main.id
-  cidr_block = var.public_subnet_01
-  availability_zone = var.az_1a
+  cidr_block = var.public_subnet[count.index]
+  availability_zone = data.aws_availability_zones.azs.names[count.index]
   map_public_ip_on_launch = true
 
   tags = {
-    Name = "public-subnet-01-ap-southeast-1a"
+    Name = "public-subnet-0${[count.index]}-${data.aws_availability_zones.azs.names[count.index]}"
   }
 }
-
-resource "aws_subnet" "public_subnet_02" {
-  vpc_id     = aws_vpc.main.id
-  cidr_block = var.public_subnet_02
-  availability_zone = var.az_1b
-  map_public_ip_on_launch = true
-
-  tags = {
-    Name = "public-subnet-01-ap-southeast-1b"
-  }
-}
-
-resource "aws_subnet" "public_subnet_03" {
-  vpc_id     = aws_vpc.main.id
-  cidr_block = var.public_subnet_03
-  availability_zone = var.az_1c
-  map_public_ip_on_launch = true
-
-  tags = {
-    Name = "public-subnet-01-ap-southeast-1c"
-  }
-}
-
