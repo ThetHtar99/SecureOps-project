@@ -39,7 +39,7 @@ resource "aws_route_table_association"  "public" {
 resource "aws_route" "public" {
   route_table_id            = aws_route_table.public_rt.id
   destination_cidr_block    = "0.0.0.0/0"
-  gateway_id = aws_route_table.public_igw.id
+  gateway_id = aws_internet_gateway.public_igw.id
 }
 
 resource "aws_internet_gateway" "public_igw" {
@@ -96,7 +96,7 @@ resource "aws_eip" "nat_eip" {
 #EIP may require IGW to exist prior to association. Use depends_on to set an explicit dependency on the IGW.
 
 resource "aws_nat_gateway" "nat" {
-  allocation_id = aws_eip.nat.id
+  allocation_id = aws_eip.nat_eip.id
   subnet_id     = aws_subnet.public_subnets[0].id
 
   tags = {
