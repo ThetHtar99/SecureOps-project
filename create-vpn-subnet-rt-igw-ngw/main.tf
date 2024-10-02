@@ -127,7 +127,7 @@ resource "aws_subnet" "db_subnets" {
 }
 
 
-resource "aws_route_table" "private_rt" {
+resource "aws_route_table" "db_rt" {
   vpc_id = aws_vpc.main.id
 
     tags = {
@@ -135,7 +135,7 @@ resource "aws_route_table" "private_rt" {
   }
 }
 
-resource "aws_route_table_association"  "private" {
+resource "aws_route_table_association"  "db" {
   count = length(var.db_subnets)
   subnet_id      = aws_subnet.db_subnets[count.index].id
   route_table_id = aws_route_table.private_rt.id
