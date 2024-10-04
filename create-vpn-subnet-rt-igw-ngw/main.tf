@@ -1,3 +1,10 @@
+provider "aws" {
+  # region     = "us-west-2"
+  access_key = vault_aws_access_credentials.creds.access_key #reference from data.tf
+  secret_key = vault_aws_access_credentials.creds.secret_key
+}
+
+
 resource "aws_vpc" "main" {
   cidr_block       = "10.10.0.0/16"
     tags = {
